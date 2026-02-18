@@ -6,14 +6,14 @@ export interface Product {
   name: string;
   price: number;
   rating?: number | null;
-  stockQuantity: number;
+  stock: number;
 }
 
 export interface NewProduct {
   name: string;
   price: number;
   rating?: number | null;
-  stockQuantity: number;
+  stock: number;
 }
 
 export interface User {
@@ -90,6 +90,15 @@ export const api = createApi({
       invalidatesTags: ["Products"],
     }),
 
+    /* ✅ DELETE PRODUCT (ADMIN) */
+    deleteProduct: build.mutation<void, string>({
+      query: (id) => ({
+        url: `/api/products/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Products"],
+    }),
+
     /* ----- USERS ----- */
     getUsers: build.query<User[], void>({
       query: () => "/api/users",
@@ -106,9 +115,10 @@ export const api = createApi({
 
 /* ---------- HOOK EXPORTS ---------- */
 export const {
-  useGetDashboardMetricsQuery, // ✅ FIX
+  useGetDashboardMetricsQuery,
   useGetProductsQuery,
   useCreateProductMutation,
+  useDeleteProductMutation, // ✅ NOW EXISTS
   useGetUsersQuery,
   useGetExpensesByCategoryQuery,
 } = api;

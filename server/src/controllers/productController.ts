@@ -24,13 +24,31 @@ export const getProducts = async (req: Request, res: Response) => {
  */
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const { name, price, stockQuantity } = req.body;
+    const {
+      name,
+      formula,
+      price,
+      stock,
+      unit,
+      hazardLevel,
+      storageLocation,
+      expiryDate,
+      supplier,
+      notes,
+    } = req.body;
 
     const product = await prisma.products.create({
       data: {
         name,
-        price,
-        stockQuantity,
+        formula,
+        price: Number(price),
+        stock: Number(stock),
+        unit,
+        hazardLevel,
+        storageLocation,
+        expiryDate: expiryDate ? new Date(expiryDate) : null,
+        supplier,
+        notes,
       },
     });
 
@@ -38,7 +56,30 @@ export const createProduct = async (req: Request, res: Response) => {
   } catch (error) {
     console.error("PRODUCT CREATE ERROR:", error);
     res.status(500).json({
-      message: "Error creating product",
+      message: "Error creating chemical",
+      error: String(error),
+    });
+  }
+};
+
+/**
+ * DELETE /api/products/:id
+ */
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    await prisma.products.delete({
+      where: { id },
+    });
+
+    res.status(200).json({
+      message: "Chemical deleted successfully",
+    });
+  } catch (error) {
+    console.error("PRODUCT DELETE ERROR:", error);
+    res.status(500).json({
+      message: "Error deleting product",
       error: String(error),
     });
   }

@@ -32,7 +32,7 @@ const Dashboard = () => {
       <StatCard
         title="Lab Usage & Costs"
         primaryIcon={<Beaker className="text-blue-600 w-6 h-6" />}
-        dateRange="22 - 29 October 2023"
+        dateRange="1 - 30 Feb 2026"
         details={[
           {
             title: "Chemical Usage Growth",
@@ -53,7 +53,7 @@ const Dashboard = () => {
       <StatCard
         title="Pending Procurement & Requests"
         primaryIcon={<ClipboardList className="text-blue-600 w-6 h-6" />}
-        dateRange="22 - 29 October 2023"
+        dateRange="1 - 30 Feb 2026"
         details={[
           {
             title: "Pending Requests",
@@ -74,7 +74,7 @@ const Dashboard = () => {
       <StatCard
         title="Usage & Waste Analysis"
         primaryIcon={<AlertTriangle className="text-blue-600 w-6 h-6" />}
-        dateRange="22 - 29 October 2023"
+        dateRange="1 - 30 Feb 2026"
         details={[
           {
             title: "Chemical Usage",

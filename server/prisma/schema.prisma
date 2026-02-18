@@ -14,14 +14,22 @@ model Users {
 }
 
 model Products {
-  id            String      @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  price         Float
-  rating        Float?
-  stockQuantity Int
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
 
-  sales     Sales[]
-  purchases Purchases[]
+  name            String
+  formula         String?        // 👈 optional
+  price           Float
+  stock           Int?           // 👈 optional
+  unit            String?        // 👈 optional
+  hazardLevel     String?        // 👈 optional
+  storageLocation String?        // 👈 optional
+
+  expiryDate      DateTime?
+  supplier        String?
+  notes           String?
+
+  sales           Sales[]
+  purchases       Purchases[]
 }
 
 model Sales {

@@ -13,14 +13,14 @@ type Product = {
   id: string;
   name: string;
   price: number;
-  stockQuantity: number;
+  stock: number;
   rating?: number | null;
 };
 
 type ProductFormData = {
   name: string;
   price: number;
-  stockQuantity: number;
+  stock: number;
   rating: number;
 };
 
@@ -104,9 +104,9 @@ const Products = () => {
               <h3 className="text-lg text-gray-900 font-semibold">
                 {product.name}
               </h3>
-              <p className="text-gray-800">${product.price.toFixed(2)}</p>
+              <p className="text-gray-800">Rs. {product.price.toFixed(2)}</p>
               <div className="text-sm text-gray-600 mt-1">
-                Stock: {product.stockQuantity}
+                Stock: {product.stock}
               </div>
               {product.rating !== null && product.rating !== undefined && (
                 <div className="flex items-center mt-2">

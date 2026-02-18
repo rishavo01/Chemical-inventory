@@ -13,7 +13,7 @@ CREATE TABLE "Products" (
     "name" TEXT NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "rating" DOUBLE PRECISION,
-    "stockQuantity" INTEGER NOT NULL,
+    "stock" INTEGER NOT NULL,
 
     CONSTRAINT "Products_pkey" PRIMARY KEY ("productId")
 );
