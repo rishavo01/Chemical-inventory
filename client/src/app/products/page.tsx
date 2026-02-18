@@ -8,6 +8,15 @@ import Rating from "@/app/(components)/Rating";
 import CreateProductModal from "./CreateProductModal";
 import Image from "next/image";
 
+/* ---------- Types ---------- */
+type Product = {
+  id: string;
+  name: string;
+  price: number;
+  stockQuantity: number;
+  rating?: number | null;
+};
+
 type ProductFormData = {
   name: string;
   price: number;
@@ -15,6 +24,7 @@ type ProductFormData = {
   rating: number;
 };
 
+/* ---------- Component ---------- */
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,11 +33,16 @@ const Products = () => {
     data: products,
     isLoading,
     isError,
-  } = useGetProductsQuery(searchTerm);
+  } = useGetProductsQuery(searchTerm) as {
+    data: Product[] | undefined;
+    isLoading: boolean;
+    isError: boolean;
+  };
 
   const [createProduct] = useCreateProductMutation();
+
   const handleCreateProduct = async (productData: ProductFormData) => {
-    await createProduct(productData);
+    await createProduct(productData).unwrap();
   };
 
   if (isLoading) {
@@ -64,47 +79,43 @@ const Products = () => {
           className="flex items-center bg-blue-500 hover:bg-blue-700 text-gray-200 font-bold py-2 px-4 rounded"
           onClick={() => setIsModalOpen(true)}
         >
-          <PlusCircleIcon className="w-5 h-5 mr-2 !text-gray-200" /> Create
-          Product
+          <PlusCircleIcon className="w-5 h-5 mr-2 !text-gray-200" />
+          Create Product
         </button>
       </div>
 
-      {/* BODY PRODUCTS LIST */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg-grid-cols-3 gap-10 justify-between">
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : (
-          products?.map((product) => (
-            <div
-              key={product.productId}
-              className="border shadow rounded-md p-4 max-w-full w-full mx-auto"
-            >
-              <div className="flex flex-col items-center">
-                <Image
-                  src={`https://s3-inventorymanagement.s3.us-east-2.amazonaws.com/product${
-                    Math.floor(Math.random() * 3) + 1
-                  }.png`}
-                  alt={product.name}
-                  width={150}
-                  height={150}
-                  className="mb-3 rounded-2xl w-36 h-36"
-                />
-                <h3 className="text-lg text-gray-900 font-semibold">
-                  {product.name}
-                </h3>
-                <p className="text-gray-800">${product.price.toFixed(2)}</p>
-                <div className="text-sm text-gray-600 mt-1">
-                  Stock: {product.stockQuantity}
-                </div>
-                {product.rating && (
-                  <div className="flex items-center mt-2">
-                    <Rating rating={product.rating} />
-                  </div>
-                )}
+      {/* PRODUCTS LIST */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="border shadow rounded-md p-4 w-full mx-auto"
+          >
+            <div className="flex flex-col items-center">
+              <Image
+                src={`https://s3-inventorymanagement.s3.us-east-2.amazonaws.com/product${
+                  Math.floor(Math.random() * 3) + 1
+                }.png`}
+                alt={product.name}
+                width={150}
+                height={150}
+                className="mb-3 rounded-2xl w-36 h-36"
+              />
+              <h3 className="text-lg text-gray-900 font-semibold">
+                {product.name}
+              </h3>
+              <p className="text-gray-800">${product.price.toFixed(2)}</p>
+              <div className="text-sm text-gray-600 mt-1">
+                Stock: {product.stockQuantity}
               </div>
+              {product.rating !== null && product.rating !== undefined && (
+                <div className="flex items-center mt-2">
+                  <Rating rating={product.rating} />
+                </div>
+              )}
             </div>
-          ))
-        )}
+          </div>
+        ))}
       </div>
 
       {/* MODAL */}

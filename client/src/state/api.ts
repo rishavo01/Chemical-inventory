@@ -1,44 +1,52 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+/* ---------- TYPES ---------- */
 export interface Product {
-  productId: string;
+  id: string;
   name: string;
   price: number;
-  rating?: number;
+  rating?: number | null;
   stockQuantity: number;
 }
 
 export interface NewProduct {
   name: string;
   price: number;
-  rating?: number;
+  rating?: number | null;
   stockQuantity: number;
 }
 
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+/* ----- Dashboard Types ----- */
 export interface SalesSummary {
-  salesSummaryId: string;
+  id: string;
   totalValue: number;
   changePercentage?: number;
   date: string;
 }
 
 export interface PurchaseSummary {
-  purchaseSummaryId: string;
+  id: string;
   totalPurchased: number;
   changePercentage?: number;
   date: string;
 }
 
 export interface ExpenseSummary {
-  expenseSummarId: string;
+  id: string;
   totalExpenses: number;
   date: string;
 }
 
 export interface ExpenseByCategorySummary {
-  expenseByCategorySummaryId: string;
+  id: string;
   category: string;
-  amount: string;
+  amount: number;
   date: string;
 }
 
@@ -50,49 +58,55 @@ export interface DashboardMetrics {
   expenseByCategorySummary: ExpenseByCategorySummary[];
 }
 
-export interface User {
-  userId: string;
-  name: string;
-  email: string;
-}
-
+/* ---------- API ---------- */
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses"],
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.NEXT_PUBLIC_API_URL,
+  }),
+  tagTypes: ["Dashboard", "Products", "Users", "Expenses"],
   endpoints: (build) => ({
+    /* ----- DASHBOARD ----- */
     getDashboardMetrics: build.query<DashboardMetrics, void>({
-      query: () => "/dashboard",
-      providesTags: ["DashboardMetrics"],
+      query: () => "/api/dashboard",
+      providesTags: ["Dashboard"],
     }),
+
+    /* ----- PRODUCTS ----- */
     getProducts: build.query<Product[], string | void>({
       query: (search) => ({
-        url: "/products",
+        url: "/api/products",
         params: search ? { search } : {},
       }),
       providesTags: ["Products"],
     }),
+
     createProduct: build.mutation<Product, NewProduct>({
       query: (newProduct) => ({
-        url: "/products",
+        url: "/api/products",
         method: "POST",
         body: newProduct,
       }),
       invalidatesTags: ["Products"],
     }),
+
+    /* ----- USERS ----- */
     getUsers: build.query<User[], void>({
-      query: () => "/users",
+      query: () => "/api/users",
       providesTags: ["Users"],
     }),
+
+    /* ----- EXPENSES ----- */
     getExpensesByCategory: build.query<ExpenseByCategorySummary[], void>({
-      query: () => "/expenses",
+      query: () => "/api/expenses",
       providesTags: ["Expenses"],
     }),
   }),
 });
 
+/* ---------- HOOK EXPORTS ---------- */
 export const {
-  useGetDashboardMetricsQuery,
+  useGetDashboardMetricsQuery, // ✅ FIX
   useGetProductsQuery,
   useCreateProductMutation,
   useGetUsersQuery,

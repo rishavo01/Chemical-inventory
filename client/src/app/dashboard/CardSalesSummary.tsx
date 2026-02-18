@@ -50,7 +50,7 @@ const CardSalesSummary = () => {
           {/* HEADER */}
           <div>
             <h2 className="text-lg font-semibold mb-2 px-7 pt-5">
-              Sales Summary
+              Chemical Consumption Summary
             </h2>
             <hr />
           </div>

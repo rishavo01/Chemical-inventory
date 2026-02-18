@@ -1,87 +1,86 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Users {
-  userId String @id
-  name   String
-  email  String
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  email String @unique
 }
 
 model Products {
-  productId     String      @id
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   price         Float
   rating        Float?
   stockQuantity Int
-  Sales         Sales[]
-  Purchases     Purchases[]
+
+  sales     Sales[]
+  purchases Purchases[]
 }
 
 model Sales {
-  saleId      String   @id
-  productId   String
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId   String   @db.ObjectId
   timestamp   DateTime
   quantity    Int
   unitPrice   Float
   totalAmount Float
-  product     Products @relation(fields: [productId], references: [productId])
+
+  product Products @relation(fields: [productId], references: [id])
 }
 
 model Purchases {
-  purchaseId String   @id
-  productId  String
-  timestamp  DateTime
-  quantity   Int
-  unitCost   Float
-  totalCost  Float
-  product    Products @relation(fields: [productId], references: [productId])
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String   @db.ObjectId
+  timestamp DateTime
+  quantity  Int
+  unitCost  Float
+  totalCost Float
+
+  product Products @relation(fields: [productId], references: [id])
 }
 
 model Expenses {
-  expenseId String   @id
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   category  String
   amount    Float
   timestamp DateTime
 }
 
 model SalesSummary {
-  salesSummaryId   String   @id
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
   totalValue       Float
   changePercentage Float?
   date             DateTime
 }
 
 model PurchaseSummary {
-  purchaseSummaryId String   @id
-  totalPurchased    Float
-  changePercentage  Float?
-  date              DateTime
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  totalPurchased   Float
+  changePercentage Float?
+  date             DateTime
 }
 
 model ExpenseSummary {
-  expenseSummaryId  String              @id
-  totalExpenses     Float
-  date              DateTime
-  ExpenseByCategory ExpenseByCategory[]
+  id            String              @id @default(auto()) @map("_id") @db.ObjectId
+  totalExpenses Float
+  date          DateTime
+
+  categories ExpenseByCategory[]
 }
 
 model ExpenseByCategory {
-  expenseByCategoryId String         @id
-  expenseSummaryId    String
-  category            String
-  amount              BigInt
-  date                DateTime
-  expenseSummary      ExpenseSummary @relation(fields: [expenseSummaryId], references: [expenseSummaryId])
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  expenseSummaryId String   @db.ObjectId
+  category         String
+  amount           BigInt
+  date             DateTime
+
+  expenseSummary ExpenseSummary @relation(fields: [expenseSummaryId], references: [id])
 }

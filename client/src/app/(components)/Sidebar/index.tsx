@@ -39,14 +39,11 @@ const SidebarLink = ({
       <div
         className={`cursor-pointer flex items-center ${
           isCollapsed ? "justify-center py-4" : "justify-start px-8 py-4"
-        }
-        hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${
+        } hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${
           isActive ? "bg-blue-200 text-white" : ""
-        }
-      }`}
+        }`}
       >
         <Icon className="w-6 h-6 !text-gray-700" />
-
         <span
           className={`${
             isCollapsed ? "hidden" : "block"
@@ -83,7 +80,7 @@ const Sidebar = () => {
       >
         <Image
           src="https://s3-inventorymanagement.s3.us-east-2.amazonaws.com/logo.png"
-          alt="edstock-logo"
+          alt=""
           width={27}
           height={27}
           className="rounded w-8"
@@ -93,7 +90,7 @@ const Sidebar = () => {
             isSidebarCollapsed ? "hidden" : "block"
           } font-extrabold text-2xl`}
         >
-          EDSTOCK
+          Chemical Inventory
         </h1>
 
         <button
@@ -115,19 +112,19 @@ const Sidebar = () => {
         <SidebarLink
           href="/inventory"
           icon={Archive}
-          label="Inventory"
+          label="Chemical Inventory"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
           href="/products"
           icon={Clipboard}
-          label="Products"
+          label="Chemicals"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
           href="/users"
           icon={User}
-          label="Users"
+          label="Lab Staff"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
@@ -139,14 +136,16 @@ const Sidebar = () => {
         <SidebarLink
           href="/expenses"
           icon={CircleDollarSign}
-          label="Expenses"
+          label="Procurement & Disposal"
           isCollapsed={isSidebarCollapsed}
         />
       </div>
 
       {/* FOOTER */}
       <div className={`${isSidebarCollapsed ? "hidden" : "block"} mb-10`}>
-        <p className="text-center text-xs text-gray-500">&copy; 2024 Edstock</p>
+        <p className="text-center text-xs text-gray-500">
+          &copy; 2026 Chemical Inventory
+        </p>
       </div>
     </div>
   );
