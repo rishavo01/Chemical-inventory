@@ -11,6 +11,7 @@ import {
   Menu,
   SlidersHorizontal,
   User,
+  FlaskConical,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -85,6 +86,7 @@ const Sidebar = () => {
           height={27}
           className="rounded w-8"
         />
+
         <h1
           className={`${
             isSidebarCollapsed ? "hidden" : "block"
@@ -109,30 +111,42 @@ const Sidebar = () => {
           label="Dashboard"
           isCollapsed={isSidebarCollapsed}
         />
+
         <SidebarLink
           href="/inventory"
           icon={Archive}
           label="Chemical Inventory"
           isCollapsed={isSidebarCollapsed}
         />
+
         <SidebarLink
           href="/products"
           icon={Clipboard}
           label="Chemicals"
           isCollapsed={isSidebarCollapsed}
         />
+
         <SidebarLink
           href="/users"
           icon={User}
           label="Lab Staff"
           isCollapsed={isSidebarCollapsed}
         />
+
+        <SidebarLink
+          href="/experiments"
+          icon={FlaskConical}
+          label="Experiments"
+          isCollapsed={isSidebarCollapsed}
+        />
+
         <SidebarLink
           href="/settings"
           icon={SlidersHorizontal}
           label="Settings"
           isCollapsed={isSidebarCollapsed}
         />
+
         <SidebarLink
           href="/expenses"
           icon={CircleDollarSign}
