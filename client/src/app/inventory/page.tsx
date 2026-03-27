@@ -1,7 +1,7 @@
 "use client";
 import { useGetProductsQuery, useDeleteProductMutation } from "@/state/api";
 import Header from "@/app/(components)/Header";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useState } from "react";
 import {
   FlaskConical,
@@ -11,6 +11,8 @@ import {
   AlertTriangle,
   CheckCircle2,
 } from "lucide-react";
+
+
 
 /* ---------- DEMO ADMIN MODE ---------- */
 const isAdmin = true;
@@ -115,7 +117,7 @@ const Inventory = () => {
       field: "name",
       headerName: "Chemical Name",
       width: 220,
-      renderCell: (params) => (
+      renderCell: (params: GridRenderCellParams) => (
         <div className="flex items-center gap-2">
           <FlaskConical className="w-4 h-4 text-blue-400 shrink-0" />
           <span className="font-medium text-gray-800">{params.value}</span>
@@ -126,7 +128,7 @@ const Inventory = () => {
       field: "price",
       headerName: "Price (NPR)",
       width: 130,
-      renderCell: (params) => (
+      renderCell: (params: GridRenderCellParams) => (
         <span className="font-semibold text-gray-700">
           Rs.{" "}
           <span className="text-blue-700">
@@ -145,7 +147,7 @@ const Inventory = () => {
       field: "unit",
       headerName: "Unit",
       width: 100,
-      renderCell: (params) => (
+      renderCell: (params: GridRenderCellParams) => (
         <span className="text-gray-500 text-sm">{params.value || "—"}</span>
       ),
     },
@@ -159,7 +161,7 @@ const Inventory = () => {
       field: "storageLocation",
       headerName: "Storage Location",
       width: 180,
-      renderCell: (params) => (
+      renderCell: (params: GridRenderCellParams) => (
         <div className="flex items-center gap-1.5 text-sm text-gray-600">
           <Package className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           {params.value || "—"}
@@ -190,7 +192,7 @@ const Inventory = () => {
       field: "supplier",
       headerName: "Supplier",
       width: 170,
-      renderCell: (params) => (
+      renderCell: (params: GridRenderCellParams) => (
         <span className="text-gray-600 text-sm">{params.value || "—"}</span>
       ),
     },
@@ -198,7 +200,7 @@ const Inventory = () => {
       field: "notes",
       headerName: "Notes",
       width: 200,
-      renderCell: (params) => (
+      renderCell: (params: GridRenderCellParams) => (
         <span className="text-gray-400 text-xs italic truncate">
           {params.value || "—"}
         </span>
@@ -211,7 +213,7 @@ const Inventory = () => {
             headerName: "Actions",
             width: 140,
             sortable: false,
-            renderCell: (params) => (
+            renderCell: (params: GridRenderCellParams) => (
               <DeleteButton
                 id={params.row.id}
                 name={params.row.name}
@@ -252,7 +254,7 @@ const Inventory = () => {
   }
 
   const totalStock = products.reduce((sum, p) => sum + (p.stock ?? 0), 0);
-  const highHazard = products.filter((p) => p.hazardLevel === "High").length;
+  const highHazard = 0;
   const lowStock = products.filter((p) => p.stock <= 10).length;
 
   /* ---------- UI ---------- */

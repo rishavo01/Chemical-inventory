@@ -20,7 +20,7 @@ const CardPopularProducts = () => {
           <div className="overflow-auto h-full">
             {dashboardMetrics?.popularProducts.map((product) => (
               <div
-                key={product.productId}
+                key={product.id}
                 className="flex items-center justify-between gap-3 px-5 py-7 border-b"
               >
                 <div className="flex items-center gap-3">

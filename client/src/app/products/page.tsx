@@ -19,7 +19,7 @@ type ProductFormData = {
   name: string;
   price: number;
   stock: number;
-  rating: number;
+  rating?: number;
 };
 
 const Products = () => {
@@ -171,7 +171,7 @@ const Products = () => {
       <CreateProductModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onCreate={handleCreateProduct}
+        onCreate={(data) => handleCreateProduct(data)}
       />
     </div>
   );
