@@ -17,10 +17,10 @@ A web-based application to efficiently manage and track chemical inventory in la
 
 ## 🛠️ Tech Stack
 
-* **Frontend:** React.js
+* **Frontend:** react.js
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB
-* **Version Control:** Git & GitHub
+* **Version Control:** git & GitHub
 
 ---
 
