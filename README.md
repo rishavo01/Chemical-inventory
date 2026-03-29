@@ -41,7 +41,7 @@ chemical-inventory/
 
 ## ⚙️ Installation & Setups
 
-### 1. Clone the repositorys
+### 1. Clone the repository
 
 ```
 git clone https://github.com/rishavo01/chemical-inventory.git
