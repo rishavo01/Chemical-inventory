@@ -77,7 +77,7 @@ MONGO_URI=your_mongodb_connection_string
 
 ---
 
-### 4. Run the project
+### 4. Run the projects
 
 #### Start backend
 
@@ -120,7 +120,7 @@ Contributions are welcome!
 1. Fork the repository
 2. Create a new branch
 3. Make your changes
-4. Submit a Pull Request
+4. Submit a Pull Requests
 
 ---
 
