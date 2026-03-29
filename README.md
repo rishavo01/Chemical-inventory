@@ -7,10 +7,10 @@ A web-based application to efficiently manage and track chemical inventory in la
 ## 🚀 Features
 
 * 📦 Add, update, and delete chemical records
-* 🔍 Search and filter chemicals easily
+* 🔍 Search and filter chemicals easilys
 * ⚠️ Track quantity and stock levels
 * 📅 Monitor expiry dates
-* 🧾 Maintain detailed chemical information
+* 🧾 Maintain detailed chemical informations
 * 🔐 Secure data handling
 
 ---
